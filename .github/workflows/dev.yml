@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: agent-rust
-        key: ${{ runner.os }}-agent-rust
+          key: ${{ runner.os }}-agent-rust
       - name: Install icx cmd
         if: steps.cache-agent-rust.outputs.cache-hit != 'true'
         run: git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build && export PATH=$PATH:~/agent-rust/target/debug
@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .cargo
-        key: ${{ runner.os }}-ic-cdk-optimizer
+          key: ${{ runner.os }}-ic-cdk-optimizer
       - name: Install IC CDK Optimizer
         if: steps.cache-ic-cdk-optimizer.outputs.cache-hit != 'true'
         run: cargo install ic-cdk-optimizer
