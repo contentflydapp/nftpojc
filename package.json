@@ -1,11 +1,10 @@
 {
-  "name": "dip721",
-  "description": "This package provides the DIP-721 developer utility scripts",
-  "version": "0.0.1",
-  "main": "index.js",
-  "repository": "https://github.com/Psychedelic/DIP721.git",
-  "author": "Helder Oliveira <helder@fleek.co>",
-  "license": "MIT",
+  "name": "nftpojc",
+  "description": "Content Fly PoJC NFT Token",
+  "version": "0.1.0",
+  "repository": "https://github.com/contentflydapp/nftpojc.git",
+  "author": "Henry Chan <henry@contentfly.app>",
+  "private": true,
   "scripts": {
     "cap:init": "git submodule update --init --recursive",
     "cap:start": "cd ./cap && dfx deploy ic-history-router && mkdir -p ../.temp && dfx canister id ic-history-router > ../.temp/ic-history-router-id",
