@@ -27,7 +27,7 @@ jobs:
         env:
           DFX_VERSION: 0.9.0
       - name: Add DFX identity and wallets
-        run: ./scripts/add-ic-identity.sh
+        run: ./ciscripts/add-ic-identity.sh
         env:
           DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
           DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
