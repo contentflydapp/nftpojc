@@ -1,0 +1,48 @@
+name: Healthcheck
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ develop ]
+  push:
+    branches: [ develop ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Setup Path
+        run: mkdir -p /github/home/.cargo && ln -s "/root/.cargo/bin" /github/home/.cargo
+
+      - name: Setup Rust toolchain
+        run: rustup install stable && rustup default stable && rustup target add wasm32-unknown-unknown
+
+      - name: Start DFX
+        run: dfx start --background
+        env:
+          NODE_ENV: ci
+      
+      - name: Start Cap Service
+        run: npm run cap:start && npm run dip721:healthcheck
+        env:
+          NODE_ENV: ci
+
+      - name: Test
+        run: npm run test
+        env:
+          CI: 1
+          NODE_ENV: ci
+
+      - name: Run Health Check
+        run: npm run dip721:healthcheck
+        env:
+          NODE_ENV: ci
+
+      
