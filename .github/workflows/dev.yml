@@ -19,11 +19,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.13.0"
-          cache: "npm"
       - name: Setup Rust toolchain
         run: rustup install stable && rustup default stable && rustup target add wasm32-unknown-unknown
+      
+      - name: Cache agent-rust
+        id: cache-agent-rust
+        uses: actions/cache@v2
+        with:
+          path: agent-rust
+        key: ${{ runner.os }}-agent-rust
+      - name: Install icx cmd
+        if: steps.cache-agent-rust.outputs.cache-hit != 'true'
+        run: git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build && export PATH=$PATH:~/agent-rust/target/debug
+      
+      - name: Cache ic-cdk-optimizer
+        id: cache-ic-cdk-optimizer
+        uses: actions/cache@v2
+        with:
+          path: .cargo
+        key: ${{ runner.os }}-ic-cdk-optimizer
       - name: Install IC CDK Optimizer
+        if: steps.cache-ic-cdk-optimizer.outputs.cache-hit != 'true'
         run: cargo install ic-cdk-optimizer
+      
       - name: Install DFX
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
@@ -35,6 +53,7 @@ jobs:
           DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
       - name: Start DFX
         run: dfx start --clean --background
+
       - name: Start Cap Service
         run: npm run cap:start
         env:
