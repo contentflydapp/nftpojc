@@ -85,6 +85,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Setup Rust toolchain
+        run: rustup install stable && rustup default stable && rustup target add wasm32-unknown-unknown
       - name: Install DFX
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:

@@ -65,6 +65,9 @@ info() {
   printf "Alice: %s\n" "$AlicePrincipalId"
   printf "Bob: %s \n" "$BobPrincipalId"
 
+  printf "PATH: \n"
+  echo $PATH
+
   printf "\n"
 }
 
