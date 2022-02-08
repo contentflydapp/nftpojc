@@ -1,4 +1,4 @@
-name: Dev - Content Fly PoJC NFT Token CI / CD
+name: Dev Test - Content Fly PoJC NFT Token CI / CD
 
 on:
   workflow_dispatch:
@@ -30,7 +30,9 @@ jobs:
           key: ${{ runner.os }}-agent-rust
       - name: Install icx cmd
         if: steps.cache-agent-rust.outputs.cache-hit != 'true'
-        run: git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build && cp target/debug/icx ..
+        run: git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build
+      - name: Copy icx
+        run: cp agent-rust/target/debug/icx .
       
       - name: Cache ic-cdk-optimizer
         id: cache-ic-cdk-optimizer
@@ -45,7 +47,7 @@ jobs:
       - name: Install DFX
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
-          DFX_VERSION: 0.8.1
+          DFX_VERSION: 0.8.4
       - name: Add DFX identity and wallets
         run: ./ciscripts/add-ic-identity.sh
         env:
@@ -54,16 +56,28 @@ jobs:
       - name: Start DFX
         run: dfx start --clean --background
 
+      - name: Cache Cap
+        id: cache-cap
+        uses: actions/cache@v2
+        with:
+          path: ~/.cargo
+          key: ${{ runner.os }}-cap
+      - name: Build Cap Service
+        if: steps.cache-cap.outputs.cache-hit != 'true'
+        run: npm run cap:build
+        env:
+          NODE_ENV: ci
       - name: Start Cap Service
         run: npm run cap:start
         env:
           NODE_ENV: ci
-      - name: Test
-        run: npm run test
-        env:
-          CI: 1
-          NODE_ENV: ci
+
       - name: Run Health Check
         run: npm run dip721:healthcheck
         env:
-          NODE_ENV: ci      
+          NODE_ENV: ci
+      
+      - name: Upgrade NFT Canister
+        run: ./ciscripts/upgradenft.sh
+        env:
+          CANISTER_CAP_ID: ${{ secrets.CANISTER_CAP_ID }}
