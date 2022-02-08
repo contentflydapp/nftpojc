@@ -56,6 +56,10 @@ jobs:
       - name: Start DFX
         run: dfx start --clean --background
 
+      - name: Fetch Cap
+        run: npm run cap:init
+      - name: Update CAP dfx
+        run: ./ciscripts/update-dfx-version.sh
       - name: Cache Cap
         id: cache-cap
         uses: actions/cache@v2
