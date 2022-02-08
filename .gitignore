@@ -27,3 +27,4 @@ yarn-error.log*
 **/coverage
 
 *.log
+agent-rust/
