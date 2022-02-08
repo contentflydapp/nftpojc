@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "cap:init": "git submodule update --init --recursive",
-    "cap:build": "cd ./cap && dfx build ic-history-router",
+    "cap:build": "cd ./cap && dfx canister create ic-history-router && dfx build ic-history-router",
     "cap:start": "cd ./cap && dfx deploy ic-history-router && mkdir -p ../.temp && dfx canister id ic-history-router > ../.temp/ic-history-router-id",
     "dip721:healthcheck": "./healthcheck.sh",
     "reset": "dfx stop && rm -rf .dfx && rm -rf ./cap/.dfx && rm -rf ./.temp",
