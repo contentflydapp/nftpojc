@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ALICE_HOME=$(mktemp -d -t alice-temp)
-BOB_HOME=$(mktemp -d -t bob-temp)
+ALICE_HOME=$(mktemp -d)
+BOB_HOME=$(mktemp -d)
 
 export ALICE_PRINCIPAL_ID=$(HOME=$ALICE_HOME dfx identity get-principal)
 export BOB_PRINCIPAL_ID=$(HOME=$BOB_HOME dfx identity get-principal)
