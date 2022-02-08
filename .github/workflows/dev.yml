@@ -54,16 +54,14 @@ jobs:
       - name: Start DFX
         run: dfx start --clean --background
 
-      - name: Fetch Cap
-        run: npm run cap:init
       - name: Update CAP dfx
         run: ./ciscripts/update-dfx-version.sh
       - name: Cache Cap
         id: cache-cap
         uses: actions/cache@v2
         with:
-          path: ~/.cargo
-          key: ${{ runner.os }}-cap
+          path: ./cap/target
+          key: ${{ runner.os }}-cap-v2
       - name: Build Cap Service
         if: steps.cache-cap.outputs.cache-hit != 'true'
         run: npm run cap:build
@@ -76,12 +74,26 @@ jobs:
 
       - name: Setup PATH for icx
         run: export PATH=$PATH:./agent-rust/target/debug
-      - run: which icx
       - name: Run Health Check
         run: npm run dip721:healthcheck
         env:
           NODE_ENV: ci
       
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install DFX
+        run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+        env:
+          DFX_VERSION: 0.8.4
+      - name: Add DFX identity and wallets
+        run: ./ciscripts/add-ic-identity.sh
+        env:
+          DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
+          DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
       - name: Upgrade NFT Canister
         run: ./ciscripts/upgradenft.sh
         env:
