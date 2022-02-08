@@ -27,12 +27,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: agent-rust
-          key: ${{ runner.os }}-agent-rust
+          key: ${{ runner.os }}-agent-rust-v2
       - name: Install icx cmd
         if: steps.cache-agent-rust.outputs.cache-hit != 'true'
         run: git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build
-      - name: Copy icx
-        run: cp agent-rust/target/debug/icx .
       
       - name: Cache ic-cdk-optimizer
         id: cache-ic-cdk-optimizer
@@ -76,6 +74,9 @@ jobs:
         env:
           NODE_ENV: ci
 
+      - name: Setup PATH for icx
+        run: export PATH=$PATH:./agent-rust/target/debug
+      - run: which icx
       - name: Run Health Check
         run: npm run dip721:healthcheck
         env:
