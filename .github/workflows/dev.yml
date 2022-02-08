@@ -73,7 +73,7 @@ jobs:
           NODE_ENV: ci
 
       - name: Setup PATH for icx
-        run: export PATH=$PATH:./agent-rust/target/debug
+        run: echo "$HOME/agent-rust/target/debug" >> $GITHUB_PATH
       - name: Run Health Check
         run: npm run dip721:healthcheck
         env:
