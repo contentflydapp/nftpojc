@@ -297,7 +297,6 @@ type AccountIdentifier = text;
    getAllMetadataForUser: (User) -> (vec TokenMetadata) query;
    supply: (TokenIdentifier) -> (BalanceReturn) query;
    metadata: (TokenIdentifier) -> (MetadataReturn)  query;
-   add: (TransferRequest) -> (TransactionId);
  };
 
-service : (principal, text, text, principal) -> erc721_token
+service : (principal, text, text, principal, LogoResult) -> erc721_token

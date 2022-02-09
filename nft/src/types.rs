@@ -51,10 +51,10 @@ pub enum InterfaceId {
     TransferNotification,
 }
 
-#[derive(CandidType, Deserialize)]
+#[derive(CandidType, Default, Clone, Deserialize, Serialize)]
 pub struct LogoResult {
-    logo_type: String,
-    data: String,
+    pub logo_type: String,
+    pub data: String,
 }
 
 pub type OwnerResult = Result<Principal, ApiError>;
@@ -287,6 +287,7 @@ pub struct TokenLevelMetadata {
     pub symbol: String,
     pub name: String,
     pub history: Option<Principal>,
+    pub logo: LogoResult,
 }
 
 #[derive(CandidType, Deserialize)]

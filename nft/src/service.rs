@@ -1,17 +1,17 @@
 use crate::types::*;
 use crate::utils::*;
 
-use ic_kit::candid::{candid_method, export_service};
+use ic_kit::candid::export_service;
 use ic_kit::ic;
 use ic_kit::ic::trap;
 use ic_kit::macros::*;
 
-use cap_sdk::{get_transaction, handshake, CapEnv, DetailValue, Event, IndefiniteEventBuilder};
+use cap_sdk::{handshake, CapEnv, DetailValue, IndefiniteEventBuilder};
 
 /// Health check
 #[query]
 fn name() -> String {
-    String::from("Content Fly PoJC NFT Canister")
+    String::from("Content Fly PoJC NFT")
 }
 
 #[query(name = "balanceOfDip721")]
@@ -99,7 +99,7 @@ fn supported_interfaces_dip721() -> Vec<InterfaceId> {
 
 #[query(name = "logoDip721")]
 fn logo_dip721() -> LogoResult {
-    unimplemented!();
+    token_level_metadata().logo.clone()
 }
 
 #[query(name = "nameDip721")]
@@ -139,7 +139,7 @@ fn get_token_ids_for_user_dip721(user: Principal) -> Vec<u64> {
     ledger().get_token_ids_for_user(&user)
 }
 
-// Implementations are encouraged to only allow minting by the owner of the smart contract
+// Only allow minting by the owner of the smart contract
 #[update(name = "mintDip721")]
 async fn mint_dip721(to: Principal, metadata_desc: MetadataDesc) -> MintReceipt {
     let caller = ic::caller();
@@ -236,14 +236,6 @@ fn metadata(token_identifier: TokenIdentifier) -> MetadataReturn {
     ledger().metadata(&token_identifier)
 }
 
-#[candid_method(update)]
-#[update(name = "getTransactionById")]
-pub async fn get_transaction_by_id(id: u64) -> Event {
-    get_transaction(id)
-        .await
-        .expect("Error retrieving transaction")
-}
-
 #[query(name = "__get_candid_interface")]
 fn export_candid() -> String {
     export_service!();
@@ -273,8 +265,9 @@ fn restore_data_from_stable_store() {
 }
 
 #[init]
-fn init(owner: Principal, symbol: String, name: String, history: Principal) {
-    *token_level_metadata() = TokenLevelMetadata::new(Some(owner), symbol, name, Some(history));
+fn init(owner: Principal, symbol: String, name: String, history: Principal, logo: LogoResult) {
+    *token_level_metadata() =
+        TokenLevelMetadata::new(Some(owner), symbol, name, Some(history), logo);
     handshake(1_000_000_000_000, Some(history));
 }
 
@@ -301,7 +294,7 @@ mod tests {
         use std::path::PathBuf;
 
         let dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
-        let dir = dir.parent().unwrap().parent().unwrap().join("candid");
+        let dir = dir.parent().unwrap();
         write(dir.join("nft.did"), export_candid()).expect("Write failed.");
     }
 }
