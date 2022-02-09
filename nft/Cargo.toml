@@ -1,7 +1,7 @@
 [package]
 name = "nft"
 version = "0.1.0"
-authors = ["Daniel Graczer <daniel@fleek.co>"]
+authors = ["Henry Chan <henry@contentfly.app>"]
 edition = "2018"
 
 [dependencies]

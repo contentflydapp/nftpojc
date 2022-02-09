@@ -1,18 +1,17 @@
 use crate::types::*;
 use crate::utils::*;
 
+use ic_kit::candid::{candid_method, export_service};
 use ic_kit::ic;
 use ic_kit::ic::trap;
 use ic_kit::macros::*;
 
-use cap_sdk::handshake;
-use cap_sdk::DetailValue;
-use cap_sdk::IndefiniteEventBuilder;
+use cap_sdk::{get_transaction, handshake, CapEnv, DetailValue, Event, IndefiniteEventBuilder};
 
-/// HEALTH-CHECK ///
+/// Health check
 #[query]
 fn name() -> String {
-    String::from("NFT Canister")
+    String::from("Content Fly PoJC NFT Canister")
 }
 
 #[query(name = "balanceOfDip721")]
@@ -30,7 +29,7 @@ async fn safe_transfer_from_dip721(_from: Principal, to: Principal, token_id: u6
     let ledger_instance = ledger();
     let caller = ic::caller();
 
-    if ! has_ownership_or_approval(ledger_instance, &caller, &to, token_id).await {
+    if !has_ownership_or_approval(ledger_instance, &caller, &to, token_id).await {
         return Err(ApiError::Unauthorized);
     }
 
@@ -67,7 +66,7 @@ async fn transfer_from_dip721(_from: Principal, to: Principal, token_id: u64) ->
     let ledger_instance = ledger();
     let caller = ic::caller();
 
-    if ! has_ownership_or_approval(ledger_instance, &caller, &to, token_id).await {
+    if !has_ownership_or_approval(ledger_instance, &caller, &to, token_id).await {
         return Err(ApiError::Unauthorized);
     }
 
@@ -125,7 +124,7 @@ fn get_metadata_dip721(token_id: u64) -> MetadataResult {
 
 #[query(name = "getMaxLimitDip721")]
 fn get_max_limit_dip721() -> u16 {
-    200
+    60000
 }
 
 #[allow(unreachable_code, unused_variables)]
@@ -142,9 +141,9 @@ fn get_token_ids_for_user_dip721(user: Principal) -> Vec<u64> {
 
 // Implementations are encouraged to only allow minting by the owner of the smart contract
 #[update(name = "mintDip721")]
-async fn mint_dip721(to: Principal, metadata_desc: MetadataDesc) -> MintReceipt {        
+async fn mint_dip721(to: Principal, metadata_desc: MetadataDesc) -> MintReceipt {
     let caller = ic::caller();
-    if ! is_controller(&caller).await {
+    if !is_controller(&caller).await {
         return Err(ApiError::Unauthorized);
     }
 
@@ -178,7 +177,7 @@ async fn transfer(transfer_request: TransferRequest) -> TransferResponse {
         _ => panic!("Oops! Unexpected transfer request to"),
     };
 
-    if ! has_ownership_or_approval(ledger_instance, &caller, &to_principal, *token_id).await {
+    if !has_ownership_or_approval(ledger_instance, &caller, &to_principal, *token_id).await {
         return Err(TransferError::Unauthorized("Unauthorized".to_string()));
     }
 
@@ -197,15 +196,11 @@ async fn transfer(transfer_request: TransferRequest) -> TransferResponse {
         &transfer_request.token,
     );
 
-
     let event = IndefiniteEventBuilder::new()
         .caller(caller)
         .operation("transfer")
         .details(vec![
-            (
-                "from".into(),
-                user_to_detail_value(User::principal(caller)),
-            ),
+            ("from".into(), user_to_detail_value(User::principal(caller))),
             ("to".into(), user_to_detail_value(transfer_request.to)),
             ("token_id".into(), DetailValue::U64(*token_id)),
         ])
@@ -241,16 +236,38 @@ fn metadata(token_identifier: TokenIdentifier) -> MetadataReturn {
     ledger().metadata(&token_identifier)
 }
 
+#[candid_method(update)]
+#[update(name = "getTransactionById")]
+pub async fn get_transaction_by_id(id: u64) -> Event {
+    get_transaction(id)
+        .await
+        .expect("Error retrieving transaction")
+}
+
+#[query(name = "__get_candid_interface")]
+fn export_candid() -> String {
+    export_service!();
+    __export_service()
+}
+
 fn store_data_in_stable_store() {
+    // Store the canister state alongside CapEnv data to the stable storage
+    // so that we can recover this data after an upgrade.
     let data = StableStorageBorrowed {
         ledger: ledger(),
         token: token_level_metadata(),
     };
-    ic::stable_store((data,)).expect("failed");
+    let stable_data = (data, cap_sdk::CapEnv::to_archive());
+
+    ic::stable_store(stable_data).expect("failed");
 }
 
 fn restore_data_from_stable_store() {
-    let (data,): (StableStorage,) = ic::stable_restore().expect("failed");
+    let (data, env): (StableStorage, CapEnv) = ic::stable_restore().expect("failed");
+    // Always remember to call "load_from_archive" to load the CapEnv that
+    // we stored during the pre_upgrade.
+    CapEnv::load_from_archive(env);
+
     ic::store(data.ledger);
     ic::store(data.token);
 }
@@ -271,4 +288,20 @@ fn pre_upgrade() {
 fn post_upgrade() {
     ic_cdk::api::print(format!("Executing postupgrade"));
     restore_data_from_stable_store();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn save_candid() {
+        use std::env;
+        use std::fs::write;
+        use std::path::PathBuf;
+
+        let dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
+        let dir = dir.parent().unwrap().parent().unwrap().join("candid");
+        write(dir.join("nft.did"), export_candid()).expect("Write failed.");
+    }
 }
