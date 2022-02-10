@@ -120,17 +120,23 @@
        };
  };
 
- type MintReceipt =
+type MintReceipt =
  variant {
    Err: ApiError;
    Ok: MintReceiptPart;
  };
 
- type MintReceiptPart =
+type MintReceiptPart =
  record {
    token_id: nat64; // minted token id
    id: nat // transaction id
   };
+
+type LogoUpdateReceipt =
+ variant {
+   Err: ApiError;
+   Ok: text;
+ };
 
 // END DIP-721 //
 
@@ -287,6 +293,7 @@ type AccountIdentifier = text;
    totalSupplyDip721: () -> (nat64) query;
    getMetadataDip721: (token_id: nat64) -> (MetadataResult) query;
    getMaxLimitDip721: () -> (nat16) query;
+   setLogoDip721: (logo: LogoResult) -> (LogoUpdateReceipt);
    mintDip721: (to: principal, metadata: MetadataDesc) -> (MintReceipt);
    getMetadataForUserDip721: (user: principal) -> (vec ExtendedMetadataResult);
    getTokenIdsForUserDip721: (user: principal) -> (vec nat64) query;

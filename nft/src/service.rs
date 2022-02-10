@@ -124,7 +124,7 @@ fn get_metadata_dip721(token_id: u64) -> MetadataResult {
 
 #[query(name = "getMaxLimitDip721")]
 fn get_max_limit_dip721() -> u16 {
-    60000
+    unimplemented!();
 }
 
 #[allow(unreachable_code, unused_variables)]
@@ -137,6 +137,18 @@ fn get_metadata_for_user_dip721(user: Principal) -> Vec<ExtendedMetadataResult> 
 #[query(name = "getTokenIdsForUserDip721")]
 fn get_token_ids_for_user_dip721(user: Principal) -> Vec<u64> {
     ledger().get_token_ids_for_user(&user)
+}
+
+#[update(name = "setLogoDip721")]
+async fn set_logo_dip721(logo: LogoResult) -> LogoUpdateReceipt {
+    let caller = ic::caller();
+    if !is_controller(&caller).await {
+        return Err(ApiError::Unauthorized);
+    }
+
+    token_level_metadata().logo = logo;
+
+    return Ok(String::from("success"));
 }
 
 // Only allow minting by the owner of the smart contract

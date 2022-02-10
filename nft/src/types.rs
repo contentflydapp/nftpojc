@@ -145,6 +145,8 @@ pub struct Burn {
 
 pub type MintReceipt = Result<MintReceiptPart, ApiError>;
 
+pub type LogoUpdateReceipt = Result<String, ApiError>;
+
 #[derive(CandidType, Deserialize)]
 pub struct MintReceiptPart {
     pub token_id: u64,

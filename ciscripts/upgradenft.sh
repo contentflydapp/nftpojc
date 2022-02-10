@@ -35,6 +35,6 @@ upgradelocal() {
   })"
 }
 
-upgradeicdev
+upgradelocal
 
 exit 0

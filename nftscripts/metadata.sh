@@ -14,6 +14,6 @@ metalocal() {
   dfx canister --no-wallet call nft getMetadataDip721 '(1)' --query
 }
 
-metaicdev
+metalocal
 
 exit 0
