@@ -20,7 +20,7 @@ seticdev() {
   printf "Setting Logo\n"
   printf "DFX_IDENTITY_PRINCIPAL=$DFX_IDENTITY_PRINCIPAL\n"
 
-  dfx canister --networkc ic --no-wallet call nft setLogoDip721 "(
+  dfx canister --network ic --no-wallet call nft setLogoDip721 "(
   record {
     logo_type=\"image/jpg\";
     data=\"$LOGO_BASE64\";
@@ -29,6 +29,6 @@ seticdev() {
   printf "\n\n"
 }
 
-setlocal
+seticdev
 
 exit 0
