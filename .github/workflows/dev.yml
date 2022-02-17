@@ -46,10 +46,6 @@ jobs:
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
           DFX_VERSION: 0.8.4
-      - name: Install DFX for NFT
-        run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-        env:
-          DFX_VERSION: 0.9.0
       - name: Add DFX identity and wallets
         run: ./ciscripts/add-ic-identity.sh
         env:
