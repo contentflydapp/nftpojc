@@ -4,7 +4,7 @@ DFX_IDENTITY_PRINCIPAL=$(dfx identity get-principal)
 TOKEN_ID="CFJ"
 TOKEN_NAME="Content Fly PoJC NFT"
 CANISTER_CAP_ID="lj532-6iaaa-aaaah-qcc7a-cai"
-CANISTER_CAP_LOCAL_ID="rrkah-fqaaa-aaaaa-aaaaq-cai"
+CANISTER_CAP_LOCAL_ID="wckdt-raaaa-aaaaa-aaatq-cai"
 LOGO_BASE64=$(cat nft/logo/logo.txt)
 
 deploylocal() {
@@ -14,15 +14,15 @@ deploylocal() {
   printf "DFX_IDENTITY_PRINCIPAL=$DFX_IDENTITY_PRINCIPAL\n"
   printf "CANISTER_CAP_LOCAL_ID=$CANISTER_CAP_LOCAL_ID\n"
 
-  dfx canister create nft
+  # dfx canister create nft
 
-  dfx deploy nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", 
-  record {
-    logo_type=\"image/jpg\";
-    data=\"$LOGO_BASE64\";
-  })" 
+  # dfx deploy nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", 
+  # record {
+  #   logo_type=\"image/jpg\";
+  #   data=\"$LOGO_BASE64\";
+  # })" 
   
-  dfx canister update-settings --controller $DFX_IDENTITY_PRINCIPAL --controller $(dfx canister id nft) -- nft
+  dfx canister update-settings --controller $DFX_IDENTITY_PRINCIPAL --controller $(dfx canister id nft) --controller r7inp-6aaaa-aaaaa-aaabq-cai -- nft
 
   printf "\n\n"
 }
@@ -47,6 +47,6 @@ deployicdev() {
   printf "\n\n"
 }
 
-deployicdev
+deploylocal
 
 exit 0

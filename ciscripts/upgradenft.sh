@@ -18,7 +18,7 @@ upgradeicdev() {
   printf "\n\n"
 
   dfx build --network ic nft
-  dfx canister --no-wallet --network ic install nft --mode upgrade --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_ID\", record {
+  dfx canister  --network ic install nft --mode upgrade --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_ID\", record {
     logo_type=\"image/jpg\";
     data=\"\";
   })"
@@ -29,7 +29,7 @@ upgradelocal() {
   printf "\n\n"
 
   dfx build nft
-  dfx canister --no-wallet install nft --mode upgrade --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", record {
+  dfx canister  install nft --mode upgrade --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", record {
     logo_type=\"image/jpg\";
     data=\"\";
   })"
