@@ -42,7 +42,11 @@ jobs:
         if: steps.cache-ic-cdk-optimizer.outputs.cache-hit != 'true'
         run: cargo install ic-cdk-optimizer
 
-      - name: Install DFX
+      - name: Install DFX for Cap
+        run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+        env:
+          DFX_VERSION: 0.8.4
+      - name: Install DFX for NFT
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
           DFX_VERSION: 0.9.0
