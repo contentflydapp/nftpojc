@@ -51,11 +51,11 @@ jobs:
         env:
           DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
           DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
-      - name: Start DFX
-        run: dfx start --clean --background
 
       - name: Update CAP dfx
         run: ./ciscripts/update-dfx-version.sh
+      - name: Start DFX
+        run: cd ./cap && dfx start --clean --background
       - name: Cache Cap
         id: cache-cap
         uses: actions/cache@v2
@@ -78,6 +78,8 @@ jobs:
         run: npm run dip721:healthcheck
         env:
           NODE_ENV: ci
+      - name: Stop DFX
+        run: dfx stop
 
   deploy:
     needs: test
@@ -96,6 +98,8 @@ jobs:
         env:
           DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
           DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
+      - name: Start DFX
+        run: cd ./cap && dfx start --clean --background
       - name: Upgrade NFT Canister
         run: ./ciscripts/upgradenft.sh
         env:
