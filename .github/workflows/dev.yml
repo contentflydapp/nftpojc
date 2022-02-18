@@ -93,13 +93,15 @@ jobs:
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
           DFX_VERSION: 0.9.0
+      - name: Switch to dfx-dev.json with latest dfx version
+        run: cp dfx-dev.json dfx.json
       - name: Add DFX identity and wallets
         run: ./ciscripts/add-ic-identity.sh
         env:
           DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
           DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
       - name: Start DFX
-        run: cd ./cap && dfx start --clean --background
+        run: dfx start --clean --background
       - name: Upgrade NFT Canister
         run: ./ciscripts/upgradenft.sh
         env:
