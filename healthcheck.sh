@@ -21,9 +21,9 @@ IcxPrologueNft="--candid=${NftCandidFile}"
 deploy() {
   printf "🤖 Deploying the NFT Canister\n"
 
-  dfx deploy  nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"tkn\", \"token\", principal \"$CANISTER_CAP_ID\")"
+  dfx deploy --no-wallet nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"tkn\", \"token\", principal \"$CANISTER_CAP_ID\")"
 
-  dfx canister  \
+  dfx canister --no-wallet \
   call aaaaa-aa \
   update_settings "(
     record { 

@@ -75,7 +75,7 @@ jobs:
       - name: Setup PATH for icx
         run: echo "./agent-rust/target/debug" >> $GITHUB_PATH
       - name: Run Health Check
-        run: npm run dip721:healthcheck
+        run: mv healthcheck.sh ./cap && cd ./cap && ./healthcheck.sh
         env:
           NODE_ENV: ci
       - name: Stop DFX
