@@ -76,6 +76,8 @@ jobs:
         run: echo "./agent-rust/target/debug" >> $GITHUB_PATH
       - name: Run Health Check
         run: npm run dip721:healthcheck
+        env:
+          NODE_ENV: ci
       - name: Stop DFX
         run: dfx stop
 
