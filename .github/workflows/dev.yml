@@ -74,12 +74,8 @@ jobs:
 
       - name: Setup PATH for icx
         run: echo "./agent-rust/target/debug" >> $GITHUB_PATH
-      - name: Run Health Check
-        run: mv healthcheck.sh ./cap && cd ./cap && ./healthcheck.sh
-        env:
-          NODE_ENV: ci
       - name: Stop DFX
-        run: dfx stop
+        run: cd ./cap && dfx stop
 
   deploy:
     needs: test
