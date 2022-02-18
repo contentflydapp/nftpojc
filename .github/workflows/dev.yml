@@ -55,7 +55,7 @@ jobs:
       - name: Update CAP dfx
         run: ./ciscripts/update-dfx-version.sh
       - name: Start DFX
-        run: cd ./cap && dfx start --clean --background
+        run: dfx start --clean --background
       - name: Cache Cap
         id: cache-cap
         uses: actions/cache@v2
@@ -74,8 +74,10 @@ jobs:
 
       - name: Setup PATH for icx
         run: echo "./agent-rust/target/debug" >> $GITHUB_PATH
+      - name: Run Health Check
+        run: npm run dip721:healthcheck
       - name: Stop DFX
-        run: cd ./cap && dfx stop
+        run: dfx stop
 
   deploy:
     needs: test

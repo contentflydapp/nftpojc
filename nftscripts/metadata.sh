@@ -7,13 +7,13 @@ printf "Checking NFT metadata of token: \n"
 printf "\n\n"
 
 metaicdev() {
-  dfx canister --network ic call nft getMetadataDip721 '(1)' --query
+  dfx canister --network ic call nft getMetadataDip721 '(4)' --query
 }
 
 metalocal() {
-  dfx canister call nft getMetadataDip721 '(6)' --query
+  dfx canister call nft getMetadataDip721 '(3)' --query
 }
 
-metalocal
+metaicdev
 
 exit 0

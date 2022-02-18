@@ -7,11 +7,12 @@ localtotalsupply() {
   dfx canister call nft totalSupplyDip721 --query
 }
 
-ictotalsupply() {
+icdevtotalsupply() {
   printf "Checking NFT total supply\n\n"
   dfx canister  --network ic call nft totalSupplyDip721 --query
 }
 
-localtotalsupply
+icdevtotalsupply
+
 
 exit 0

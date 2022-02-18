@@ -10,10 +10,10 @@ localbalance() {
 }
 
 icbalance() {
-  printf "Checking NFT balance of account: $WALLET_ACCOUNT2_PRINCIPAL\n\n"
-  dfx canister  --network ic call nft balanceOfDip721 "(principal \"$WALLET_ACCOUNT2_PRINCIPAL\")" --query
+  printf "Checking NFT balance of account: $WALLET_ACCOUNT_PRINCIPAL\n\n"
+  dfx canister  --network ic call nft balanceOfDip721 "(principal \"$WALLET_ACCOUNT_PRINCIPAL\")" --query
 }
 
-localbalance
+icbalance
 
 exit 0
