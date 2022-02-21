@@ -1,51 +1,35 @@
-![Group 5982](https://user-images.githubusercontent.com/73345016/144523337-fe7d6b49-d0a7-4621-852d-daeee344d4e2.png)
+# 🚀 Content Fly Proof of Job Completion (PoJC) NFT
 
-# 💎 DIP-721
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org) [![Healthcheck](https://github.com/Psychedelic/DIP721/actions/workflows/pr-healthcheck-runner.yml/badge.svg)](https://github.com/Psychedelic/DIP721/actions/workflows/pr-healthcheck-runner.yml)
+Content Fly PoJC follows the [DIP721 standard](https://github.com/Psychedelic/DIP721/blob/develop/spec.md). It is a fork of [DIP721](https://github.com/Psychedelic/DIP721/)
 
-[DIP-721](spec.md) is an ERC-721 style non-fungible token standard built mirroring its Ethereum counterpart and adapting it to the Internet Computer, maintaining the same interface.
+DIP-721 is an ERC-721 style non-fungible token standard built mirroring its Ethereum counterpart and adapting it to the Internet Computer, maintaining the same interface.
 
-This standard aims to adopt the EIP-721 to the Internet Computer; providing a
-simple, non-ambiguous, extendable API for the transfer and tracking ownership of NFTs and expanding/building upon the EXT standard with partial compatibility.
+This standard aims to adopt the EIP-721 to the Internet Computer; providing a simple, non-ambiguous, extendable API for the transfer and tracking ownership of NFTs and expanding/building upon the EXT standard with partial compatibility.
 
-## 📒 Table of Contents 
+# Why DIP721?
 
-- [Specification](#-specification)
-- [NFT Implementation example](#-nft-implementation-example)
-  - [Requirements](#-requirements)
-  - [Getting started](#-getting-started)
-- [Contribution guideline](#-contributing)
+DIP721 is chosen for implement PoJC NFT because:
 
-## 🎓 Specification
+- It simplifies and enhances the EXT standard.
+- It is supported in Plug Wallet so users can actually see it in their wallets.
+- It has basic integration with [CAP](https://cap.ooo/) for transaction history and asset provenance.
+- It is under active development and will continue to evolve.
 
-The document for the [DIP-721](spec.md) is available [here](spec.md).
+# Enhancements (updated on 21st Feb 2022)
 
-⚠️ This is an an in-development standard, consider it a work in progress as we finalize details in its design and gather feedback from the community.
+- Added Github Action workflow for deployment to Internet Computer and running basic healtch check testing with NFT canister
+- Added CI scripts /ciscripts and NFT scripts /nftscripts for running common cmds on local DFX or IC network
+- Implemented logoDip721 with LogoResult response
+- Added setLogoDip721 for controller only
+- Add a separate dfx-dev.json DFX 0.9.0 for running with other local Canisters that have upgraded to 0.9.0 (that has significant changes on --no-wallet flag)
+- Add dfx-prod.json for DFX 0.8.4 used for CAP install and deploy
 
-## 👋 Community
+# Active Branch
 
-We'd like to collaborate with the community to provide a better [token standard implementation](spec.md) for the developers on the IC, if you have some ideas you'd like to discuss, submit an issue, if you want to improve the code or you made a different implementation, make a pull request by following our [contribution guideline](#-Contributing), please!
+Currently, the active Git branch is develop for local development and deployment to IC network. That can change in the future.
 
-Check the [roadmap](docs/roadmap.md)
+# Get Started
 
-## 👩‍🎤 NFT Implementation example
+# License
 
-An NFT (non-fungible token) implementation which follows the [DIP-721](spec.md) specification is available and can be used as a base for your projects.
-
-Find more about it [here](docs/nft-example.md)
-
-## 🙏 Contributing
-
-Create branches from the `main` branch and name it in accordance to **conventional commits** [here](https://www.conventionalcommits.org/en/v1.0.0/), or follow the examples bellow:
-
-```txt
-test: 💍 Adding missing tests
-feat: 🎸 A new feature
-fix: 🐛 A bug fix
-chore: 🤖 Build process or auxiliary tool changes
-docs: ✏️ Documentation only changes
-refactor: 💡 A code change that neither fixes a bug or adds a feature
-style: 💄 Markup, white-space, formatting, missing semi-colons...
-```
-
-Find more about contributing [here](docs/contributing.md), please!
+Content Fly PoJC NFT - [MIT License](LICENSE)

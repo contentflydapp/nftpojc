@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "repository": "https://github.com/contentflydapp/nftpojc.git",
   "author": "Henry Chan <henry@contentfly.app>",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "cap:init": "git submodule update --init --recursive",
     "cap:build": "cd ./cap && dfx canister create ic-history-router && dfx build ic-history-router",
