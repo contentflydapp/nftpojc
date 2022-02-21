@@ -1,6 +1,6 @@
 # 🚀 Content Fly Proof of Job Completion (PoJC) NFT
 
-Content Fly PoJC follows the [DIP721 standard](https://github.com/Psychedelic/DIP721/blob/develop/spec.md). It is a fork of [DIP721](https://github.com/Psychedelic/DIP721/)
+Content Fly PoJC NFT Token follows the [DIP721 standard](https://github.com/Psychedelic/DIP721/blob/develop/spec.md). It is a fork of [DIP721](https://github.com/Psychedelic/DIP721/)
 
 DIP-721 is an ERC-721 style non-fungible token standard built mirroring its Ethereum counterpart and adapting it to the Internet Computer, maintaining the same interface.
 
@@ -8,7 +8,7 @@ This standard aims to adopt the EIP-721 to the Internet Computer; providing a si
 
 # Why DIP721?
 
-DIP721 is chosen for implement PoJC NFT because:
+DIP721 is chosen because:
 
 - It simplifies and enhances the EXT standard.
 - It is supported in Plug Wallet so users can actually see it in their wallets.
@@ -26,9 +26,65 @@ DIP721 is chosen for implement PoJC NFT because:
 
 # Active Branch
 
-Currently, the active Git branch is develop for local development and deployment to IC network. That can change in the future.
+Currently, **develop** is the Git branch under active development. It is used for local development and deployment to IC network. That can change in the future.
 
-# Get Started
+# Getting Started
+
+If you use dfx 0.9.0, switch to dfx-dev.json:
+
+```
+cp dfx-dev.json dfx.json
+
+```
+
+All scripts in /nftscripts are for dfx 0.9.0.
+
+## To build and run this locally:
+
+You will need:
+
+- NodeJS 16+
+- DFX SDK 0.9.0
+- Rust Toolchain
+- ICX command from dfx agent
+- IC CDK Optimizer
+
+Install Rust Toolchain
+
+```
+rustup install stable && rustup default stable && rustup target add wasm32-unknown-unknown
+```
+
+Install agent-rust for icx command
+
+```
+git clone https://github.com/dfinity/agent-rust.git && cd agent-rust && cargo build
+```
+
+Install IC CDK Optimizer
+
+```
+cargo install ic-cdk-optimizer
+```
+
+Start DFX local server
+
+```
+dfx start --background
+```
+
+Start CAP
+
+```
+npm cap:init
+npm run cap:start
+```
+
+Deploy NFT and run healtcheck
+
+```
+npm run dip721:healthcheck
+```
 
 # License
 

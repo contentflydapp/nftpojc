@@ -12,7 +12,7 @@ icdevtotalsupply() {
   dfx canister  --network ic call nft totalSupplyDip721 --query
 }
 
-icdevtotalsupply
+localtotalsupply
 
 
 exit 0

@@ -11,9 +11,9 @@ metaicdev() {
 }
 
 metalocal() {
-  dfx canister call nft getMetadataDip721 '(3)' --query
+  dfx canister call nft getMetadataDip721 '(10)' --query
 }
 
-metaicdev
+metalocal
 
 exit 0

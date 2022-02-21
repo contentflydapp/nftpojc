@@ -16,13 +16,13 @@ deploylocal() {
 
   # dfx canister create nft
 
-  # dfx deploy nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", 
-  # record {
-  #   logo_type=\"image/jpg\";
-  #   data=\"$LOGO_BASE64\";
-  # })" 
+  dfx deploy nft --argument "(principal \"$DFX_IDENTITY_PRINCIPAL\", \"$TOKEN_ID\", \"$TOKEN_NAME\", principal \"$CANISTER_CAP_LOCAL_ID\", 
+  record {
+    logo_type=\"image/jpg\";
+    data=\"$LOGO_BASE64\";
+  })" 
   
-  dfx canister update-settings --controller $DFX_IDENTITY_PRINCIPAL --controller $(dfx canister id nft) --controller r7inp-6aaaa-aaaaa-aaabq-cai -- nft
+  dfx canister update-settings --controller $DFX_IDENTITY_PRINCIPAL --controller $(dfx canister id nft) --controller  -- nft
 
   printf "\n\n"
 }
