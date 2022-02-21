@@ -1,5 +1,7 @@
 # 🚀 Content Fly Proof of Job Completion (PoJC) NFT
 
+[![Content Fly PoJC NFT Token CI / CD](https://github.com/contentflydapp/nftpojc/actions/workflows/dev.yml/badge.svg?branch=develop)](https://github.com/contentflydapp/nftpojc/actions/workflows/dev.yml)
+
 Content Fly PoJC NFT Token follows the [DIP721 standard](https://github.com/Psychedelic/DIP721/blob/develop/spec.md). It is a fork of [DIP721](https://github.com/Psychedelic/DIP721/)
 
 DIP-721 is an ERC-721 style non-fungible token standard built mirroring its Ethereum counterpart and adapting it to the Internet Computer, maintaining the same interface.
