@@ -89,7 +89,7 @@ npm run dip721:healthcheck
 
 # Future Plan
 
-This NFT Canister is still controlled by Content Fly team during active development. It will be made decentralized and sent to black hole with empty controller when all the major features are implemented.
+This NFT Canister is under active development by Content Fly team. The controller of the Canister is Content Fly team. In the future, it will be made immutable and sent to black hole with empty controller when all the major features are implemented.
 
 # License
 
