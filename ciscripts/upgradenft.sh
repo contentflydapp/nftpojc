@@ -5,8 +5,8 @@ DFX_IDENTITY_PRINCIPAL=$(dfx identity get-principal)
 TOKEN_ID="CFJ"
 TOKEN_NAME="Content Fly PoJC NFT"
 
-CANISTER_CAP_ID="lj532-6iaaa-aaaah-qcc7a-cai"
-CANISTER_CAP_LOCAL_ID="rrkah-fqaaa-aaaaa-aaaaq-cai"
+CANISTER_CAP_ID="$CANISTER_CAP_ID"
+CANISTER_CAP_LOCAL_ID="$CANISTER_CAP_LOCAL_ID"
 
 printf "Deploying the CF PoJC NFT Canister\n"
 printf "TOKEN_ID=$TOKEN_ID\n"
