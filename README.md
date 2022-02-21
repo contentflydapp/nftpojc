@@ -17,12 +17,13 @@ DIP721 is chosen because:
 
 # Enhancements (updated on 21st Feb 2022)
 
+- Added store and restore CAP data in Canister preupgrade and postupgrade so that it will survive future canister upgrade, otherwise future mint after Canister upgrade (with integration to CAP) will fail because it lost the CAP root canister id reference info created during init handshake
 - Added Github Action workflow for deployment to Internet Computer and running basic healtch check testing with NFT canister
 - Added CI scripts /ciscripts and NFT scripts /nftscripts for running common cmds on local DFX or IC network
 - Implemented logoDip721 with LogoResult response
 - Added setLogoDip721 for controller only
-- Add a separate dfx-dev.json DFX 0.9.0 for running with other local Canisters that have upgraded to 0.9.0 (that has significant changes on --no-wallet flag)
-- Add dfx-prod.json for DFX 0.8.4 used for CAP install and deploy
+- Added a separate dfx-dev.json DFX 0.9.0 for running with other local Canisters that have upgraded to 0.9.0 (that has significant changes on --no-wallet flag)
+- Added dfx-prod.json for DFX 0.8.4 used for CAP install and deploy
 
 # Active Branch
 
@@ -85,6 +86,10 @@ Deploy NFT and run healtcheck
 ```
 npm run dip721:healthcheck
 ```
+
+# Future Plan
+
+This NFT Canister is still controlled by Content Fly team during active development. It will be made decentralized and sent to black hole with empty controller when all the major features are implemented.
 
 # License
 
