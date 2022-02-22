@@ -151,7 +151,7 @@ async fn set_logo_dip721(logo: LogoResult) -> LogoUpdateReceipt {
     return Ok(String::from("success"));
 }
 
-// Only allow minting by the owner of the smart contract
+// Only allow minting by the controller of the smart contract
 #[update(name = "mintDip721")]
 async fn mint_dip721(to: Principal, metadata_desc: MetadataDesc) -> MintReceipt {
     let caller = ic::caller();
