@@ -14,7 +14,7 @@ jobs:
       - name: Install DFX
         run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
         env:
-          DFX_VERSION: 0.9.0
+          DFX_VERSION: 0.9.3
       - name: Switch to dfx-dev.json with latest dfx version
         run: cp dfx-dev.json dfx.json
       - name: Add DFX identity and wallets

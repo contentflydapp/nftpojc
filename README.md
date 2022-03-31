@@ -24,7 +24,7 @@ DIP721 is chosen because:
 - Added CI scripts /ciscripts and NFT scripts /nftscripts for running common cmds on local DFX or IC network
 - Implemented logoDip721 with LogoResult response
 - Added setLogoDip721 for controller only
-- Added a separate dfx-dev.json DFX 0.9.0 for running with other local Canisters that have upgraded to 0.9.0 (that has significant changes on --no-wallet flag)
+- Added a separate dfx-dev.json DFX 0.9.3 for running with other local Canisters that have upgraded to 0.9.3 (that has significant changes on --no-wallet flag)
 - Added dfx-prod.json for DFX 0.8.4 used for CAP install and deploy
 
 # Active Branch
@@ -33,21 +33,21 @@ Currently, **develop** is the Git branch under active development. It is used fo
 
 # Getting Started
 
-If you use dfx 0.9.0, switch to dfx-dev.json:
+If you use dfx version >= 0.9.0, switch to dfx-dev.json:
 
 ```
 cp dfx-dev.json dfx.json
 
 ```
 
-All scripts in /nftscripts are for dfx 0.9.0.
+All scripts in /nftscripts are for dfx >= 0.9.0.
 
 ## To build and run this locally:
 
 You will need:
 
 - NodeJS 16+
-- DFX SDK 0.9.0
+- DFX SDK 0.9.x
 - Rust Toolchain
 - ICX command from dfx agent
 - IC CDK Optimizer
