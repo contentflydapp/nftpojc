@@ -5,10 +5,10 @@
 # So make sure you have added all the needed controllers in the cmd.
 
 DFX_IDENTITY_PRINCIPAL=$(dfx identity get-principal)
-ICDEV_WALLET="vwjwx-7qaaa-aaaah-qabla-cai"
-ICPROD_JOB="akpg4-7qaaa-aaaah-aa4rq-cai"
-ICDEV_JOB="nlxgr-sqaaa-aaaah-qccjq-cai"
-LOCAL_JOB="r7inp-6aaaa-aaaaa-aaabq-cai"
+ICDEV_WALLET="$WALLET_PRINCIPAL_IC_DEV"
+ICPROD_JOB="$JOB_CANISTER_ID_IC_PROD"
+ICDEV_JOB="$JOB_CANISTER_ID_IC_DEV"
+LOCAL_JOB="$JOB_CANISTER_ID"
 
 deploylocal() {
   printf "Updatting controller for NFT Canister\n"
