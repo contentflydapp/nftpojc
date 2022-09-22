@@ -8,7 +8,7 @@ then
   read -r -p "🤖 Would you like me to reset it now (the local-replica will be stopped) [Y/n]? " CONT
 
   if [ "$CONT" = "Y" ]; then
-    npm run reset
+    yarn reset
 
     printf "🙏 Remember to re-start the local-replica, before starting this process\n\n"  
 
@@ -31,7 +31,7 @@ then
   read -r -p "🤖 Would you like me to start the Cap Service for you [Y/n]? " CONT
 
   if [ "$CONT" = "Y" ]; then
-    npm run cap:start
+    yarn cap:start
   else
     printf "🚩 The Cap Service is a requirement, I'm afraid.\n\n"
 

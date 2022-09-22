@@ -1,0 +1,30 @@
+name: Deploy - PoJC NFT Token
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Rust toolchain
+        run: rustup install stable && rustup default stable && rustup target add wasm32-unknown-unknown
+      - name: Install DFX
+        run: echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+        env:
+          DFX_VERSION: 0.9.3
+      - name: Switch to dfx-dev.json with latest dfx version
+        run: cp dfx-dev.json dfx.json
+      - name: Add DFX identity and wallets
+        run: ./ciscripts/add-ic-identity.sh
+        env:
+          DFX_IDENTITY: ${{ secrets.DFX_IDENTITY }}
+          DFX_WALLETS: ${{ secrets.DFX_WALLETS }}
+      - name: Start DFX
+        run: dfx start --clean --background
+      - name: Upgrade NFT Canister
+        run: ./ciscripts/upgradenft.sh
+        env:
+          CANISTER_CAP_ID: ${{ secrets.CANISTER_CAP_ID }}

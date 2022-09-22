@@ -1,7 +1,7 @@
 [package]
 name = "nft"
 version = "0.1.0"
-authors = ["Daniel Graczer <daniel@fleek.co>"]
+authors = ["Henry Chan <henry@contentfly.app>"]
 edition = "2018"
 
 [dependencies]
@@ -12,8 +12,11 @@ serde = { version="1.0.130", features = ["derive"] }
 derive-new = "0.5"
 serde_bytes = "0.11.5"
 serde_cbor = "0.11.2"
-cap-sdk= { git = "https://github.com/Psychedelic/cap", branch = "cap-sdk", package="cap-sdk" }
-cap-std= { git = "https://github.com/Psychedelic/cap", branch = "cap-sdk", package="cap-standards", features = ["alpha-dip721"] }
+cap-sdk = "0.1.0-alpha1"
+cap-std= { git = "https://github.com/Psychedelic/cap", branch = "main", package="cap-standards", features = ["alpha-dip721"] }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+async-std = { version="1.10.0", features = ["attributes"] }
 
 [lib]
 crate-type = ["cdylib"]
