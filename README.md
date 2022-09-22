@@ -79,7 +79,7 @@ dfx start --background
 Start CAP
 
 ```
-npm cap:init
+npm run cap:init
 npm run cap:start
 ```
 
