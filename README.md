@@ -29,7 +29,8 @@ DIP721 is chosen because:
 
 # Active Branch
 
-Currently, **develop** is the Git branch under active development. It is used for local development and deployment to IC network. That can change in the future.
+Currently, **develop** is the Git branch under active development. It is used for local development.
+**main** is the branch for deployment to IC network.
 
 # Getting Started
 

@@ -166,40 +166,6 @@ impl Ledger {
         ledger().user_tokens.get(user).unwrap_or(&vec![]).len() as u64
     }
 
-    pub fn transfer(&mut self, from: &User, to: &User, token_identifier: &TokenIdentifier) {
-        // change token owner in the tokens map
-        let token_index = into_token_index(token_identifier);
-        let mut token_metadata = ledger()
-            .tokens
-            .get_mut(&token_index)
-            .expect("unable to find token identifier in tokens");
-
-        token_metadata.account_identifier = to.clone().into();
-        token_metadata.principal = expect_principal(&to);
-
-        // remove the token from the previous owner's tokenlist
-        let from_token_indexes = ledger()
-            .user_tokens
-            .get_mut(&from)
-            .expect("unable to find previous owner");
-        from_token_indexes.remove(
-            from_token_indexes
-                .iter()
-                .position(|token_index_in_vec| &token_index == token_index_in_vec)
-                .expect("unable to find token index in users_token"),
-        );
-        if from_token_indexes.len() == 0 {
-            ledger().user_tokens.remove(&from);
-        }
-
-        // add the token to the new owner's tokenlist
-        ledger()
-            .user_tokens
-            .entry(to.clone())
-            .or_default()
-            .push(token_index);
-    }
-
     pub fn bearer(&self, token_identifier: &TokenIdentifier) -> AccountIdentifierReturn {
         AccountIdentifierReturn::Ok(
             ledger()

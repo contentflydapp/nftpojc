@@ -124,26 +124,6 @@ ownerOfDip721() {
   icx --pem="$DefaultPem" query "$NftID" ownerOfDip721 "($token_id)" $IcxPrologueNft
 }
 
-safeTransferFromDip721() {
-  printf "🤖 Call the safeTransferFromDip721\n"
-
-  from_principal="${AlicePrincipalId}"
-  to_principal="${BobPrincipalId}"
-  token_id="0"
-
-  icx --pem="$AlicePem" update "$NftID" safeTransferFromDip721 "(principal \"$from_principal\", principal \"$to_principal\", $token_id)" "$IcxPrologueNft"
-}
-
-transferFromDip721() {
-  printf "🤖 Call the transferFromDip721\n"
-  
-  from_principal="${BobPrincipalId}"
-  to_principal="${AlicePrincipalId}"
-  token_id="0"
-
-  icx --pem="$BobPem" update "$NftID" transferFromDip721 "(principal \"$from_principal\", principal \"$to_principal\", $token_id)" "$IcxPrologueNft"
-}
-
 logoDip721() {
   printf "🤖 Call the logoDip721\n"
 
@@ -212,17 +192,6 @@ getAllMetadataForUser() {
   icx --pem="$DefaultPem" query "$NftID" getAllMetadataForUser "(variant {\"principal\" = principal \"$user\"})" "$IcxPrologueNft"
 }
 
-transfer() {
-  printf "🤖 Call the transfer\n"
-
-  from_principal="${AlicePrincipalId}"
-  from_pem="${AlicePem}"
-  to_principal="${BobPrincipalId}"
-  token_id="0"
-
-  icx --pem="$from_pem" update "$NftID" transfer "(record {amount = 1; from = variant {\"principal\" = principal \"$from_principal\"}; memo = vec{}; notify = true; SubAccount = null; to = variant {\"principal\" = principal \"$to_principal\"}; token = \"$token_id\"})" "$IcxPrologueNft"
-}
-
 tests() {
   deploy
   init
@@ -238,19 +207,6 @@ tests() {
   totalSupplyDip721
   balanceOfDip721
   ownerOfDip721
-  safeTransferFromDip721
-  transferFromDip721
-  transfer
-
-  ### not testable
-  # printf "Running mintNFT"
-  # mintNFT
-  # printf "Running logoDip721..."
-  # logoDip721
-  # printf "Running metadata...."
-  # metadata
-  # printf "Running getAllMetadataForUser..."
-  # getAllMetadataForUser
 }
 
 tests

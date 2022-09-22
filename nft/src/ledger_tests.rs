@@ -46,35 +46,6 @@ mod tests {
         assert_eq!(ledger.get_metadata_for_user(&alice()).len(), 2);
 
         assert_eq!(ledger.get_metadata(0).unwrap().len(), 1);
-
-        ledger.transfer(
-            &User::principal(alice()),
-            &User::principal(bob()),
-            &"0".to_owned(),
-        );
-        assert_eq!(ledger.owner_of(&"0".to_owned()).unwrap(), bob());
-    }
-
-    #[should_panic]
-    #[test]
-    fn owner_of_non_existent_token() {
-        let mut ledger = setup_ledger();
-        ledger.transfer(
-            &User::principal(alice()),
-            &User::principal(bob()),
-            &"42".to_owned(),
-        );
-    }
-
-    #[should_panic]
-    #[test]
-    fn transfer_token_not_owned() {
-        let mut ledger = setup_ledger();
-        ledger.transfer(
-            &User::principal(john()),
-            &User::principal(bob()),
-            &"0".to_owned(),
-        );
     }
 
     #[test]
