@@ -1,4 +1,4 @@
-name: Dev Test - Content Fly PoJC NFT Token Deploy
+name: Deploy - PoJC NFT Token
 
 on:
   workflow_dispatch:
