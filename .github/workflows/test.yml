@@ -3,7 +3,7 @@ name: Test - PoJC NFT Token
 on:
   workflow_dispatch:
   push:
-    branches: [develop]
+    branches: [soulbound]
 
 jobs:
   test:
